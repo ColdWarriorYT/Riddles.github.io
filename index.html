@@ -1,15 +1,44 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Riddle Index</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
-<link rel="stylesheet" type="text/css" href="styles.css">
 <body>
-    <h1>Welcome to the Index Page of the hub of where some of the most complex riddles are stored!</h1>
-    <p>There are many riddles available on this site.</p>
-    <p>Here are the links to the sites for each riddle:</p>
-    <p>Rules and hints are provided on the riddle pages. (sometimes hints arent provided)</p>
-    <p><a href="Riddles/riddle1.html">Riddle 1</a></p>
+    <main class="page">
+        <header>
+            <div>
+                <h1>Riddle Index</h1>
+                <p class="lead">A central index for riddle categories. Click a category to browse its collection of riddles.</p>
+                </div>
+        </header>
+
+        <section class="intro">
+            <div class="card">
+                <h2>About this index</h2>
+                <p>This page lists riddle categories only. Individual category pages contain the riddles themselves so the index remains clean and fast to load.</p>
+            </div>
+            <div class="card">
+                <h2>Rules and hints are provided for each riddle</h2>
+                <p>Not every riddle has hints available</p>
+                <p>Some riddles will require outside sites which will have links provided for them</p>
+            </div>
+        </section>
+
+        <section class="categories" aria-labelledby="categories-heading">
+            <h2 id="categories-heading" class="visually-hidden">Riddles</h2>
+            <ul class="category-list">
+                <li><a href="decyphering1.html">The first riddle - decyphering</a></li>
+                <li><a href="wordplay1.html">The second riddle - wordplay</a></li>
+                <li><a href="math1.html">The third riddle - A math problem</a></li>
+            </ul>
+        </section>
+
+        <footer class="footer">
+            <p>&copy; 2023 Riddle Index. All rights reserved.</p>
+        </footer>
+    </main>
 </body>
 </html>

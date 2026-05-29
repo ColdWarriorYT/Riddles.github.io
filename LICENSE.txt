@@ -1,0 +1,22 @@
+TERMS OF USE AND LICENSE AGREEMENT
+
+© 2026 ColdWarrior. All rights reserved.
+
+This project is open-source for collaboration, but remains restricted against unauthorized distribution and cloning. All intellectual property rights regarding this website, its design, and original content belong strictly to ColdWarrior. By accessing the source code or using this website, you agree to the following terms:
+
+1. FREE USE AND YOUTUBE CONTENT CREATION
+You are permitted to access, use, and showcase this website for free. You are explicitly allowed to create YouTube videos featuring this website and monetize those videos, provided that clear and proper credit (including a link to the official website) is given to ColdWarrior in the video description.
+
+2. OPEN SOURCE ACCESS AND DISTRIBUTION RESTRICTIONS
+The source code is made publicly available for educational purposes and contributions via GitHub. However, you are strictly prohibited from redistributing, re-uploading, or hosting the source code, assets, or content of this website on any other server, platform, public repository, or domain. To share this project, you must link directly to the official URL or the official GitHub repository managed by ColdWarrior.
+
+3. CONTRIBUTIONS AND FEEDBACK
+Any suggestions, code contributions, or feedback must be submitted exclusively through the official Discord server or GitHub repository managed by ColdWarrior. By submitting a contribution, you agree to grant ColdWarrior full, unrestricted ownership and rights to use, modify, and integrate your contribution into the project without any compensation.
+
+4. ANTI-SCRAPING AND COPYING PROHIBITION
+You are strictly forbidden from copying, cloning, or mimicking this website's design, branding, or functionality for your own public website. Automating data extraction (including data scraping, crawling, harvesting, or using bots) to retrieve content or user data from this website is strictly prohibited.
+
+5. DISCLAIMER OF LIABILITY ("AS IS")
+This website and its source code are provided on an "AS IS" and "AS AVAILABLE" basis without any warranties of any kind. ColdWarrior is not liable for any downtime, technical errors, data loss, or indirect damages resulting from the use or inability to use this website or its code.
+
+For inquiries, contributions, or permissions, please contact ColdWarrior via the official Discord or GitHub channels.
