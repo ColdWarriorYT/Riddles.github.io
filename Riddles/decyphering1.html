@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Riddle 1 - Deciphering</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <main class="page">
+        <header>
+            <div>
+                <h1>Riddle 1: Deciphering</h1>
+                <p class="lead">Decode the clue and enter the final word below.</p>
+            </div>
+        </header>
+
+        <section class="riddle-card">
+            <div class="card">
+                <h2>The clue</h2>
+                <p id="riddle-text">Decrypt this message and submit the last word: <strong>&quot;Guvf vf nal bar yvax&quot;</strong>.</p>
+            </div>
+
+            <form id="answer-form" class="answer-form" autocomplete="off">
+                <label for="answer-input">Answer</label>
+                <input id="answer-input" name="answer" type="text" placeholder="Enter the secret word" required>
+                <button type="submit">Check answer</button>
+                <p id="answer-message" class="answer-message" aria-live="polite"></p>
+            </form>
+
+            <nav class="riddle-nav">
+                <a href="../index.html">Back to index</a>
+            </nav>
+        </section>
+    </main>
+
+    <script>
+        // Change this value to update the correct answer.
+        const correctAnswer = 'one';
+
+        const form = document.getElementById('answer-form');
+        const input = document.getElementById('answer-input');
+        const message = document.getElementById('answer-message');
+
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+            const answer = input.value.trim().toLowerCase();
+
+            if (!answer) {
+                message.textContent = 'Please enter an answer.';
+                message.className = 'answer-message warning';
+                return;
+            }
+
+            if (answer === correctAnswer.toLowerCase()) {
+                message.textContent = 'Correct! Well done.';
+                message.className = 'answer-message success';
+            } else {
+                message.textContent = 'Incorrect. Try again.';
+                message.className = 'answer-message error';
+            }
+        });
+    </script>
+</body>
+</html>

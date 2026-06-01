@@ -116,6 +116,69 @@ p.lead {
     transform: translateY(-1px);
 }
 
+.answer-form {
+    display: grid;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.answer-form label {
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+.answer-form input {
+    width: 100%;
+    padding: 16px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #f8fafc;
+}
+
+.answer-form button {
+    width: fit-content;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 999px;
+    background-color: #60a5fa;
+    color: #000;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.answer-form button:hover {
+    background-color: #3b82f6;
+    transform: translateY(-1px);
+}
+
+.answer-message {
+    margin: 0;
+    min-height: 1.5rem;
+}
+
+.answer-message.success {
+    color: #a3ffb0;
+}
+
+.answer-message.error {
+    color: #ff9ea6;
+}
+
+.answer-message.warning {
+    color: #ffdd99;
+}
+
+.riddle-nav a {
+    color: #8cd4ff;
+    text-decoration: none;
+}
+
+.riddle-nav a:hover {
+    text-decoration: underline;
+}
+
 .footer {
     margin-top: 36px;
     color: #94a3b8;
