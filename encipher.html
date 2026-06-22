@@ -165,7 +165,14 @@ function initGrid() {
 /* ---------------- KEY INPUT (CLICK MAP) ---------------- */
 
 document.addEventListener("keydown", (e) => {
-    if (!selected) return;
+    const target = e.target;
+    if (
+        !selected ||
+        e.altKey || e.ctrlKey || e.metaKey ||
+        (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.tagName === "SELECT" || target.isContentEditable))
+    ) {
+        return;
+    }
 
     let ch = e.key.toLowerCase();
     if (!alphabet.includes(ch)) return;
