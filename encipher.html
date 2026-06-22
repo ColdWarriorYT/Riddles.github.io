@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cipher Tool</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <main class="page">
+
+        <header>
+            <div>
+                <h1>Substitution Cipher Tool</h1>
+                <p class="lead">
+                    Encrypt and decrypt text using a custom substitution key.
+                </p>
+            </div>
+        </header>
+
+        <section class="intro">
+            <div class="card">
+                <h2>How it works</h2>
+                <p>
+                    Enter a key in the format <code>a=g b=a c=e ...</code>, load it,
+                    then encrypt or decrypt text instantly.
+                </p>
+            </div>
+
+            <div class="card">
+                <h2>Key rules</h2>
+                <p>Each letter must map to exactly one other letter.</p>
+                <p>Spaces and punctuation are not affected.</p>
+            </div>
+        </section>
+
+        <section class="categories">
+
+            <div class="card">
+                <h2>Key Input</h2>
+                <input id="keyInput"
+                       value="a=g b=a c=e d=d e=f f=h g=r h=t i=y j=o k=i l=p m=l n=m o=k p=c q=v r=x s=z t=q u=w v=u w=b x=u y=s z=j">
+                <button onclick="buildKey()">Load Key</button>
+            </div>
+
+            <div class="card">
+                <h2>Input Text</h2>
+                <textarea id="input" placeholder="Type your message here..."></textarea>
+
+                <button onclick="encrypt()">Encrypt</button>
+                <button onclick="decrypt()">Decrypt</button>
+            </div>
+
+            <div class="card">
+                <h2>Output</h2>
+                <textarea id="output" readonly></textarea>
+            </div>
+
+        </section>
+
+        <footer class="footer">
+            <p>&copy; Cipher Tool</p>
+        </footer>
+
+    </main>
+
+<script>
+
+let key = {};
+let reverseKey = {};
+
+function buildKey() {
+    key = {};
+    reverseKey = {};
+
+    let raw = document.getElementById("keyInput").value.trim().split(" ");
+
+    for (let pair of raw) {
+        let [k, v] = pair.split("=");
+        if (k && v) {
+            key[k] = v;
+            reverseKey[v] = k;
+        }
+    }
+}
+
+function encrypt() {
+    let text = document.getElementById("input").value.toLowerCase();
+    let result = "";
+
+    for (let char of text) {
+        result += key[char] || char;
+    }
+
+    document.getElementById("output").value = result;
+}
+
+function decrypt() {
+    let text = document.getElementById("input").value.toLowerCase();
+    let result = "";
+
+    for (let char of text) {
+        result += reverseKey[char] || char;
+    }
+
+    document.getElementById("output").value = result;
+}
+
+buildKey();
+
+</script>
+
+</body>
+</html>
