@@ -117,30 +117,54 @@ button, select, input, textarea {
 <section class="card">
 
     <div class="row">
-        <label>Mode:</label>
+        <label>Method:</label>
         <select id="mode" onchange="updateUI()">
             <option value="sub">Substitution</option>
             <option value="caesar">Caesar</option>
             <option value="atbash">Atbash</option>
+            <option value="rot13">ROT13</option>
+            <option value="affine">Affine</option>
+            <option value="vigenere">Vigenère</option>
+            <option value="reverse">Reverse</option>
         </select>
 
-        <label id="shiftBox" class="hidden">
-            Shift:
-            <input id="shift" type="number" value="3" style="width:60px;">
-        </label>
+        <div id="keyInputRow" class="row">
+            <label>Key entry:</label>
+            <select id="keyInputMode" onchange="updateUI()">
+                <option value="visual">Visual substitution grid</option>
+            </select>
+        </div>
     </div>
 
-</section>
+    <div id="keyControls" class="row">
+        <div id="substitutionBox" class="hidden">
+            <div class="row">
+                <button onclick="openImportDialog()">Import Key</button>
+            </div>
+            <div class="grid" id="grid"></div>
+        </div>
 
-<section class="card">
+        <div id="caesarBox" class="hidden">
+            <label>Shift:
+                <input id="shift" type="number" value="3" style="width:60px;">
+            </label>
+        </div>
 
-    <h3>Key Editor</h3>
+        <div id="affineBox" class="hidden">
+            <label>a:
+                <input id="affineA" type="number" value="5" style="width:60px;">
+            </label>
+            <label>b:
+                <input id="affineB" type="number" value="8" style="width:60px;">
+            </label>
+        </div>
 
-    <div class="row">
-        <button onclick="openImportDialog()">Import Key</button>
+        <div id="vigenereBox" class="hidden">
+            <label>Keyword:
+                <input id="vigenereKey" type="text" value="key" style="width:160px;">
+            </label>
+        </div>
     </div>
-
-    <div class="grid" id="grid"></div>
 
 </section>
 
@@ -167,6 +191,13 @@ button, select, input, textarea {
         <button onclick="decrypt()">Decrypt</button>
     </div>
 
+</section>
+
+<section class="card">
+    <h3>How it works</h3>
+    <div id="methodInfo">
+        <p><strong>Substitution:</strong> each letter is replaced by another letter from your custom mapping.</p>
+    </div>
 </section>
 
 <section class="card">
@@ -346,10 +377,57 @@ function confirmImport() {
 /* ---------------- MODES ---------------- */
 
 function updateUI() {
-    document.getElementById("shiftBox")
-        .classList.toggle("hidden",
-            document.getElementById("mode").value !== "caesar"
-        );
+    const mode = document.getElementById("mode").value;
+    const keyInputMode = document.getElementById("keyInputMode");
+    const keyInputRow = document.getElementById("keyInputRow");
+    const substitutionBox = document.getElementById("substitutionBox");
+    const caesarBox = document.getElementById("caesarBox");
+    const affineBox = document.getElementById("affineBox");
+    const vigenereBox = document.getElementById("vigenereBox");
+    const methodInfo = document.getElementById("methodInfo");
+
+    const descriptions = {
+        sub: "<p><strong>Substitution:</strong> each letter is replaced by another letter from your custom mapping.</p>",
+        caesar: "<p><strong>Caesar:</strong> every letter shifts by a fixed number in the alphabet.</p>",
+        atbash: "<p><strong>Atbash:</strong> letters are mirrored around the alphabet, so <em>a</em> becomes <em>z</em>.</p>",
+        rot13: "<p><strong>ROT13:</strong> each letter shifts by 13 positions.</p>",
+        affine: "<p><strong>Affine:</strong> each letter is transformed with the formula <em>y = ax + b</em> modulo 26.</p>",
+        vigenere: "<p><strong>Vigenère:</strong> a repeating keyword shifts each letter in the message.</p>",
+        reverse: "<p><strong>Reverse:</strong> the text is simply reversed character by character.</p>"
+    };
+
+    if (methodInfo) {
+        methodInfo.innerHTML = descriptions[mode] || descriptions.sub;
+    }
+
+    const options = {
+        sub: [["visual", "Visual substitution grid"], ["none", "None"]],
+        caesar: [["shift", "Shift number"], ["none", "None"]],
+        atbash: [["none", "None"]],
+        rot13: [["none", "None"]],
+        affine: [["affine", "Affine parameters"], ["none", "None"]],
+        vigenere: [["keyword", "Keyword"], ["none", "None"]],
+        reverse: [["none", "None"]]
+    };
+
+    const available = options[mode] || options.sub;
+    const current = keyInputMode.value;
+
+    keyInputMode.innerHTML = available.map(([value, label]) => `<option value="${value}">${label}</option>`).join("");
+
+    if (available.some(([value]) => value === current)) {
+        keyInputMode.value = current;
+    } else {
+        keyInputMode.value = available[0][0];
+    }
+
+    const needsKey = mode === "sub" || mode === "caesar" || mode === "affine" || mode === "vigenere";
+    keyInputRow.classList.toggle("hidden", !needsKey);
+
+    substitutionBox.classList.toggle("hidden", mode !== "sub" || keyInputMode.value !== "visual");
+    caesarBox.classList.toggle("hidden", mode !== "caesar" || keyInputMode.value !== "shift");
+    affineBox.classList.toggle("hidden", mode !== "affine" || keyInputMode.value !== "affine");
+    vigenereBox.classList.toggle("hidden", mode !== "vigenere" || keyInputMode.value !== "keyword");
 }
 
 /* ---------------- ENCRYPT / DECRYPT ---------------- */
@@ -368,7 +446,45 @@ function decrypt() {
 
 /* ---------------- CORE ---------------- */
 
+function modInverse(a, m) {
+    a = ((a % m) + m) % m;
+    for (let x = 1; x < m; x++) {
+        if ((a * x) % m === 1) return x;
+    }
+    return 1;
+}
+
 function transformText(text, mode, forward) {
+    if (mode === "reverse") {
+        return text.split("").reverse().join("");
+    }
+
+    if (mode === "vigenere") {
+        const keyword = (document.getElementById("vigenereKey").value || "key")
+            .toLowerCase()
+            .replace(/[^a-z]/g, "");
+
+        if (!keyword) return text;
+
+        let out = "";
+        let keyPos = 0;
+
+        for (let ch of text) {
+            if (!alphabet.includes(ch)) {
+                out += ch;
+                continue;
+            }
+
+            const shift = alphabet.indexOf(keyword[keyPos % keyword.length]);
+            const idx = alphabet.indexOf(ch);
+            const shifted = (idx + (forward ? shift : -shift) + 26) % 26;
+            out += alphabet[shifted];
+            keyPos++;
+        }
+
+        return out;
+    }
+
     let out = "";
 
     for (let ch of text) {
@@ -394,8 +510,26 @@ function transformChar(ch, mode, forward) {
         return alphabet[(idx + shift + 26) % 26];
     }
 
+    if (mode === "rot13") {
+        let idx = alphabet.indexOf(ch);
+        return alphabet[(idx + (forward ? 13 : -13) + 26) % 26];
+    }
+
     if (mode === "atbash") {
         return alphabet[25 - alphabet.indexOf(ch)];
+    }
+
+    if (mode === "affine") {
+        const a = parseInt(document.getElementById("affineA").value || 1);
+        const b = parseInt(document.getElementById("affineB").value || 0);
+        const idx = alphabet.indexOf(ch);
+
+        if (forward) {
+            return alphabet[(a * idx + b) % 26];
+        }
+
+        const inv = modInverse(a, 26);
+        return alphabet[(inv * ((idx - b + 26) % 26)) % 26];
     }
 
     return ch;
