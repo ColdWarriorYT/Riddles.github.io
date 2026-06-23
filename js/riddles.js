@@ -6,31 +6,6 @@ const finalForm = document.getElementById('final-answer-form');
 const finalInput = document.getElementById('final-answer-input');
 const finalMessage = document.getElementById('final-answer-message');
 
-const hintButtons = Array.from(document.querySelectorAll('[data-hint-target]'));
-
-hintButtons.forEach(button => {
-    const targetId = button.getAttribute('data-hint-target');
-    const hint = document.getElementById(targetId);
-
-    if (!hint) {
-        return;
-    }
-
-    button.addEventListener('click', () => {
-        const isHidden = hint.classList.contains('hidden');
-
-        if (isHidden) {
-            hint.classList.remove('hidden');
-            button.textContent = 'Hide hint';
-            button.setAttribute('aria-expanded', 'true');
-        } else {
-            hint.classList.add('hidden');
-            button.textContent = 'Show hint';
-            button.setAttribute('aria-expanded', 'false');
-        }
-    });
-});
-
 if (form && input && message) {
     form.addEventListener('submit', event => {
         event.preventDefault();

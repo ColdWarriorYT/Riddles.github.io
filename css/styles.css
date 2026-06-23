@@ -174,27 +174,25 @@ p.lead {
     color: #ffdd99;
 }
 
-.hint-toggle {
-    width: fit-content;
-    padding: 10px 16px;
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.06);
-    color: #f8fafc;
+details {
+    margin-bottom: 16px;
+}
+
+summary {
     cursor: pointer;
     font-weight: 600;
+    color: #8cd4ff;
 }
 
-.hint-toggle:hover {
-    border-color: rgba(96, 165, 250, 0.5);
-    background: rgba(96, 165, 250, 0.16);
+summary:hover {
+    text-decoration: underline;
 }
 
-.hint-panel {
-    margin-top: 10px;
-    padding: 12px 14px;
+details p {
+    margin-top: 8px;
+    padding: 10px 12px;
     border-left: 3px solid #60a5fa;
-    border-radius: 10px;
+    border-radius: 8px;
     background: rgba(96, 165, 250, 0.12);
     color: #dbeafe;
 }
