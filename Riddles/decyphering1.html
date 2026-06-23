@@ -18,11 +18,19 @@
         <section class="riddle-card">
             <div class="card">
                 <h2>The riddle</h2>
-                <p id="riddle-text">y gl ufxs cxkwd kh skw hkx dfeyctfxymr qtyz byqt kmps zklf mkqfz.
-awq yh skw etfgqfd qtfm skw tgufmq bkm sfq.
-afegwzf qtyz dfeyctfxymr bgz kmps qtf afrymmymr.
-y byzt skw g pkq kh zweefz byqt qtf xfzq gmd y tkcf skw eklcpfqf qtf xyddpf byqtkwq etfgqymr</p>
-                <p hidden id="correct-answer">i am very proud of you for deciphering this with only some notes. but if you cheated then you havent won yet. because this deciphering was only the beginning. i wish you a lot of succes with the rest and i hope you complete the riddle without cheating</p>
+                <p id="riddle-text">
+                    y gl ufxs cxkwd kh skw hkx dfeyctfxymr qtyz byqt kmps zklf mkqfz.
+                    awq yh skw etfgqfd qtfm skw tgufmq bkm sfq.
+                    afegwzf qtyz dfeyctfxymr bgz kmps qtf afrymmymr.
+                    y byzt skw g pkq kh zweefz byqt qtf xfzq gmd y tkcf skw eklcpfqf qtf xyddpf byqtkwq etfgqymr
+                </p>
+                <button type="button" class="hint-toggle" data-hint-target="riddle-hint" aria-expanded="false">Show hint</button>
+                <p id="riddle-hint" class="hint-panel hidden" role="status">
+                    Hint: this is a substitution-style cipher, so look for repeated letters and common word shapes.
+                </p>
+                <p hidden id="correct-answer">
+                    i am very proud of you for deciphering this with only some notes. but if you cheated then you havent won yet. because this deciphering was only the beginning. i wish you a lot of succes with the rest and i hope you complete the riddle without cheating
+                </p>
             </div>
 
             <form id="answer-form" class="answer-form" autocomplete="off">
@@ -34,7 +42,17 @@ y byzt skw g pkq kh zweefz byqt qtf xfzq gmd y tkcf skw eklcpfqf qtf xyddpf byqt
 
             <section id="final-riddle-section" class="card hidden">
                 <h2>Final riddle</h2>
-                <p>Now that the first answer is correct, solve this final clue.</p>
+                <p>Now that the first answer is correct, solve the actual riddle.</p>
+                <p>
+                    mkb qtgq qtf hyxzq gmzbfx yz ekxxfeq, zkpuf qtf geqwgp xyddpf.
+                    yl fufxsbtfxf y egm iypp skw, awq skw mffd lf hkx zwxuyugp.
+                    yl wzfhwp kx wzfpfzz qk skw
+                </p>
+                <button type="button" class="hint-toggle" data-hint-target="final-riddle-hint" aria-expanded="false">Show hint</button>
+                <p id="final-riddle-hint" class="hint-panel hidden" role="status">
+                    Hint: think of a simple, everyday thing that can be found in a glass and is needed to survive.
+                </p>
+                <p hidden id="final-answer">water</p>
                 <form id="final-answer-form" class="answer-form" autocomplete="off">
                     <label for="final-answer-input">Final answer</label>
                     <input id="final-answer-input" name="finalAnswer" type="text" placeholder="enter final answer" required>
