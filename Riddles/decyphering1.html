@@ -18,15 +18,30 @@
         <section class="riddle-card">
             <div class="card">
                 <h2>The riddle</h2>
-                <p id="riddle-text"><strong>&quot;Guvf vf nal bar yvax&quot;</strong>.</p>
+                <p id="riddle-text">y gl ufxs cxkwd kh skw hkx dfeyctfxymr qtyz byqt kmps zklf mkqfz.
+awq yh skw etfgqfd qtfm skw tgufmq bkm sfq.
+afegwzf qtyz dfeyctfxymr bgz kmps qtf afrymmymr.
+y byzt skw g pkq kh zweefz byqt qtf xfzq gmd y tkcf skw eklcpfqf qtf xyddpf byqtkwq etfgqymr</p>
+                <p hidden id="correct-answer">i am very proud of you for deciphering this with only some notes. but if you cheated then you havent won yet. because this deciphering was only the beginning. i wish you a lot of succes with the rest and i hope you complete the riddle without cheating</p>
             </div>
 
             <form id="answer-form" class="answer-form" autocomplete="off">
-                <label for="answer-input">Answer</label>
-                <input id="answer-input" name="answer" type="text" placeholder="Enter the secret word" required>
+                <label for="answer-input">answer</label>
+                <input id="answer-input" name="answer" type="text" placeholder="input answer here" required>
                 <button type="submit">Check answer</button>
                 <p id="answer-message" class="answer-message" aria-live="polite"></p>
             </form>
+
+            <section id="final-riddle-section" class="card hidden">
+                <h2>Final riddle</h2>
+                <p>Now that the first answer is correct, solve this final clue.</p>
+                <form id="final-answer-form" class="answer-form" autocomplete="off">
+                    <label for="final-answer-input">Final answer</label>
+                    <input id="final-answer-input" name="finalAnswer" type="text" placeholder="enter final answer" required>
+                    <button type="submit">Check final answer</button>
+                    <p id="final-answer-message" class="answer-message" aria-live="polite"></p>
+                </form>
+            </section>
 
             <nav class="riddle-nav">
                 <a href="../index.html">Back to index</a>

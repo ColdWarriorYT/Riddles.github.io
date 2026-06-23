@@ -41,7 +41,7 @@ textarea {
     margin-top: 10px;
 }
 
-button, select, input {
+button, select, input, textarea {
     padding: 8px;
 }
 
@@ -50,6 +50,38 @@ button, select, input {
     grid-template-columns: repeat(13, 1fr);
     gap: 8px;
     margin-top: 12px;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-panel {
+    width: min(520px, 90vw);
+    background: white;
+    color: #111;
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.modal-panel textarea {
+    width: 100%;
+    min-height: 180px;
+    resize: vertical;
+    margin: 10px 0;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
 }
 
 .cell {
@@ -105,12 +137,25 @@ button, select, input {
     <h3>Key Editor</h3>
 
     <div class="row">
-        <button onclick="importKeyPrompt()">Import Key</button>
+        <button onclick="openImportDialog()">Import Key</button>
     </div>
 
     <div class="grid" id="grid"></div>
 
 </section>
+
+<div id="importModal" class="modal hidden">
+    <div class="modal-panel">
+        <h3>Import key</h3>
+        <p>Paste one of these formats:</p>
+        <p><em>a -> g</em>, <em>a=g</em>, <em>a:g</em>, <em>a=>g</em>, or JSON</p>
+        <textarea id="importText" placeholder="a -> g&#10;b -> h"></textarea>
+        <div class="modal-actions">
+            <button onclick="closeImportDialog()">Cancel</button>
+            <button onclick="confirmImport()">Import</button>
+        </div>
+    </div>
+</div>
 
 <section class="card">
 
@@ -272,11 +317,30 @@ function parseKeyInput(raw) {
     }
 }
 
-function importKeyPrompt() {
-    let raw = prompt('Paste key (supports formats like "a -> g", "a=g", "a:g", "a=>g", or JSON)');
-    if (!raw) return;
+function openImportDialog() {
+    const modal = document.getElementById("importModal");
+    const textarea = document.getElementById("importText");
+    if (modal && textarea) {
+        textarea.value = "";
+        modal.classList.remove("hidden");
+        textarea.focus();
+    }
+}
+
+function closeImportDialog() {
+    const modal = document.getElementById("importModal");
+    if (modal) {
+        modal.classList.add("hidden");
+    }
+}
+
+function confirmImport() {
+    const textarea = document.getElementById("importText");
+    const raw = textarea ? textarea.value : "";
+    if (!raw.trim()) return;
 
     parseKeyInput(raw);
+    closeImportDialog();
 }
 
 /* ---------------- MODES ---------------- */

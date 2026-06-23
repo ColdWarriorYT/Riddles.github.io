@@ -1,8 +1,10 @@
-const correctAnswer = 'one';
-
 const form = document.getElementById('answer-form');
 const input = document.getElementById('answer-input');
 const message = document.getElementById('answer-message');
+const finalSection = document.getElementById('final-riddle-section');
+const finalForm = document.getElementById('final-answer-form');
+const finalInput = document.getElementById('final-answer-input');
+const finalMessage = document.getElementById('final-answer-message');
 
 if (form && input && message) {
     form.addEventListener('submit', event => {
@@ -16,12 +18,43 @@ if (form && input && message) {
             return;
         }
 
-        if (answer === correctAnswer.toLowerCase()) {
+        const correctAnswer = document.getElementById('correct-answer')?.textContent
+            ?.replace(/\s+/g, ' ')
+            .trim()
+            .toLowerCase();
+
+        if (answer === correctAnswer) {
             message.textContent = 'Correct! Well done.';
             message.className = 'answer-message success';
+
+            if (finalSection) {
+                finalSection.classList.remove('hidden');
+            }
         } else {
             message.textContent = 'Incorrect. Try again.';
             message.className = 'answer-message error';
+        }
+    });
+}
+
+if (finalForm && finalInput && finalMessage) {
+    finalForm.addEventListener('submit', event => {
+        event.preventDefault();
+
+        const answer = finalInput.value.trim().toLowerCase();
+
+        if (!answer) {
+            finalMessage.textContent = 'Please enter your final answer.';
+            finalMessage.className = 'answer-message warning';
+            return;
+        }
+
+        if (answer === 'finish') {
+            finalMessage.textContent = 'You solved the final riddle!';
+            finalMessage.className = 'answer-message success';
+        } else {
+            finalMessage.textContent = 'Not quite. Try again.';
+            finalMessage.className = 'answer-message error';
         }
     });
 }
